@@ -1,4 +1,4 @@
-"""Source Code Security Analysis Agent"""
+"""Static Code Analysis Agent"""
 import os
 from dotenv import load_dotenv
 from cai.sdk.agents import Agent, OpenAIChatCompletionsModel
@@ -11,7 +11,7 @@ from cai.tools.others.scripting import scripting_tool
 load_dotenv()
 
 # Create system prompt
-source_analysis_prompt = load_prompt_template("prompts/source_code_analysis_agent.md")
+static_code_analysis_prompt = load_prompt_template("prompts/static_code_analysis_agent.md")
 
 # Define tools for code analysis (following CAI standard pattern)
 tools = [
@@ -21,11 +21,11 @@ tools = [
 ]
 
 # Create the agent
-source_code_analysis_agent = Agent(
-    name="Source Code Analyzer",
+static_code_analysis_agent = Agent(
+    name="Static Code Analyzer",
     description="""Agent specialized in white-box security testing and source code analysis.
                    Expert in finding logic flaws and security vulnerabilities.""",
-    instructions=create_system_prompt_renderer(source_analysis_prompt),
+    instructions=create_system_prompt_renderer(static_code_analysis_prompt),
     tools=tools,
     model=OpenAIChatCompletionsModel(
         model=os.getenv('CAI_MODEL', "alias0"),
@@ -35,6 +35,6 @@ source_code_analysis_agent = Agent(
 
 # Transfer function for handoffs
 def transfer_to_source_code_analysis_agent(**kwargs):  # pylint: disable=W0613
-    """Transfer to source code analysis agent.
+    """Transfer to static code analysis agent.
     Accepts any keyword arguments but ignores them."""
-    return source_code_analysis_agent 
+    return static_code_analysis_agent
