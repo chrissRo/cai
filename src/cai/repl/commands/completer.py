@@ -632,40 +632,9 @@ class FuzzyCommandCompleter(Completer):
         actual_words = [w for w in words if w]
         
         # Position 2: Completing subcommand (e.g., "/mcp <tab>")
+        # Use the default subcommand handler - no need to duplicate!
         if len(words) == 2:
-            subcommands = {
-                "load": "Load an MCP server (SSE or stdio)",
-                "list": "List active MCP connections",
-                "add": "Add MCP tools to an agent",
-                "remove": "Remove an MCP server connection",
-                "tools": "List tools from an MCP server",
-                "status": "Check MCP server connection status",
-                "associations": "Show agent-MCP associations",
-                "help": "Show MCP command usage",
-            }
-            
-            for cmd, desc in subcommands.items():
-                # Exact prefix match
-                if cmd.startswith(current_word):
-                    suggestions.append(Completion(
-                        cmd,
-                        start_position=-len(current_word),
-                        display=HTML(
-                            f"<ansigreen><b>{cmd:<12}</b></ansigreen> "
-                            f"{desc}"),
-                        style="fg:ansigreen bold"
-                    ))
-                # Fuzzy match
-                elif (current_word in cmd and
-                      not cmd.startswith(current_word)):
-                    suggestions.append(Completion(
-                        cmd,
-                        start_position=-len(current_word),
-                        display=HTML(
-                            f"<ansigreen>{cmd:<12}</ansigreen> "
-                            f"{desc}"),
-                        style="fg:ansigreen"
-                    ))
+            return self.get_subcommand_suggestions(words[0], current_word)
         
         # Position 3: After subcommand (e.g., "/mcp load <tab>")
         elif len(words) == 3 and len(actual_words) > 1:
