@@ -125,7 +125,7 @@ Cybersecurity AI (CAI) is a lightweight, open-source framework that empowers sec
 
 ### 📊 Research Impact
 - Pioneered LLM-powered AI Security with PentestGPT, establishing the foundation for the `Cybersecurity AI` research domain [![arXiv](https://img.shields.io/badge/arXiv-2308.06782-b31b1b.svg)](https://arxiv.org/pdf/2308.06782)
-- Established the `Cybersecurity AI` research line with **4 peer-reviewed papers and technical reports** and active research collaborations [![arXiv](https://img.shields.io/badge/arXiv-2504.06017-b31b1b.svg)](https://arxiv.org/pdf/2504.06017) [![arXiv](https://img.shields.io/badge/arXiv-2506.23592-b31b1b.svg)](https://arxiv.org/abs/2506.23592) [![arXiv](https://img.shields.io/badge/arXiv-2508.13588-b31b1b.svg)](https://arxiv.org/abs/2508.13588) [![arXiv](https://img.shields.io/badge/arXiv-2508.21669-b31b1b.svg)](https://arxiv.org/abs/2508.21669)
+- Established the `Cybersecurity AI` research line with **4 papers and technical reports** and active research collaborations [![arXiv](https://img.shields.io/badge/arXiv-2504.06017-b31b1b.svg)](https://arxiv.org/pdf/2504.06017) [![arXiv](https://img.shields.io/badge/arXiv-2506.23592-b31b1b.svg)](https://arxiv.org/abs/2506.23592) [![arXiv](https://img.shields.io/badge/arXiv-2508.13588-b31b1b.svg)](https://arxiv.org/abs/2508.13588) [![arXiv](https://img.shields.io/badge/arXiv-2508.21669-b31b1b.svg)](https://arxiv.org/abs/2508.21669)
 - Demonstrated **3,600× performance improvement** over human penetration testers in standardized CTF benchmark evaluations [![arXiv](https://img.shields.io/badge/arXiv-2504.06017-b31b1b.svg)](https://arxiv.org/pdf/2504.06017)
 - Identified **CVSS 4.3-7.5 severity vulnerabilities** in production systems through automated security assessment [![arXiv](https://img.shields.io/badge/arXiv-2504.06017-b31b1b.svg)](https://arxiv.org/pdf/2504.06017)
 - **Democratization of AI-empowered vulnerability research**: CAI enables both non-security domain experts and experienced researchers to conduct more efficient vulnerability discovery, expanding the security research community while empowering small and medium enterprises to conduct autonomous security assessments [![arXiv](https://img.shields.io/badge/arXiv-2504.06017-b31b1b.svg)](https://arxiv.org/pdf/2504.06017)
@@ -199,6 +199,7 @@ Cybersecurity AI is a critical field, yet many groups are misguidedly pursuing i
 - [NDAY Security](https://ndaysecurity.com/)
 - [Runsybil](https://www.runsybil.com)
 - [Selfhack](https://www.selfhack.fi)
+- [Sola Security](https://sola.security/)
 - [SQUR](https://squr.ai/)
 - [Staris](https://staris.tech/)
 - [Sxipher](https://www.sxipher.com/) (seems discontinued)
