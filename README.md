@@ -1005,22 +1005,23 @@ When CAI is prompted by the first time, the user is provided with two paths, the
 <details>
 <summary>Can I expand CAI capabilities using previous run logs?</summary>
 
-Absolutely! The **memory extension** allows you to use a previously sucessful runs ( the log object is stored as a **.jsonl file in the [log](cai/logs) folder** ) in a new run against the same target.
-The user is also given the path highlighted in orange as shown below.
+Yes. Today CAI performs best by relying on In‑Context Learning (ICL). Rather than building long‑term stores, the recommended workflow is to load relevant prior logs directly into the current session so the model can reason with them in context.
+
+Use the `/load` command to bring JSONL logs into CAI’s context (this replaces the legacy memory-loading tool):
+
+```bash
+CAI>/load logs/cai_20250408_111856.jsonl         # Load into current agent
+CAI>/load <file> agent <name>                    # Load into a specific agent
+CAI>/load <file> all                             # Distribute across all agents
+CAI>/load <file> parallel                        # Match to configured parallel agents
+# Tip: if you omit <file>, /load uses `logs/last`. Alias: /l
+```
+
+CAI prints the path to the current run’s JSONL log at startup (highlighted in orange), which you can pass to `/load`:
 
 ![cai-009-logs](imgs/readme_imgs/cai-009-logs.png)
 
-How to make use of this functionality?
-
-1. Run CAI against the target. Let's assume the target name is: `target001`.
-2. Get the log file path, something like: ```logs/cai_20250408_111856.jsonl```
-3. Generate the memory using any model of your preference:
-```shell JSONL_FILE_PATH="logs/cai_20250408_111856.jsonl" CTF_INSIDE="false" CAI_MEMORY_COLLECTION="target001" CAI_MEMORY="episodic" CAI_MODEL="claude-3-5-sonnet-20241022" python3 tools/2_jsonl_to_memory.py ```
-
-The script [`tools/2_jsonl_to_memory.py`](cai/tools/2_jsonl_to_memory.py) will generate a memory collection file with the most relevant steps. The quality of the memory collection will depend on the model you use.
-
-4. Use the generated memory collection and execute a new run:
-```shell CAI_MEMORY="episodic" CAI_MODEL="gpt-4o" CAI_MEMORY_COLLECTION="target001" CAI_TRACING=false python3 cai/cli.py```
+Legacy notes: earlier “memory extension” mechanisms (episodic/semantic stores and offline ingestion) are retained for reference only. See [src/cai/agents/memory.py](src/cai/agents/memory.py) for background and legacy details. Our current direction prioritizes ICL over persistent memory.
 
 </details>
 
