@@ -1044,7 +1044,12 @@ CAI itself is not a profit-seeking initiative. Our goal is to build a sustainabl
 
 </details>
 
+<details><summary>I get a `Unable to locate package python3.12-venv` when installing the prerequisites on my debian based system!</summary>
 
+The easiest way to get around this is to simply install [`python3.12`](https://www.python.org/downloads/release/python-3120/) from source.
+
+
+</details>
 
 ## Citation
 If you want to cite our work, please use the following:
