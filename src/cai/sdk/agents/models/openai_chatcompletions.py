@@ -2691,7 +2691,7 @@ class OpenAIChatCompletionsModel(Model):
         if "alias" in model_str and "alias0.5" not in model_str:  # NOTE: exclude alias0.5
             kwargs["api_base"] = "https://api.aliasrobotics.com:666/"
             kwargs["custom_llm_provider"] = "openai"
-            kwargs["api_key"] = os.getenv("ALIAS_API_KEY", "sk-alias-1234567890")
+            kwargs["api_key"] = os.getenv("ALIAS_API_KEY", "REDACTED_ALIAS_KEY")
         elif "/" in model_str:
             # Handle provider/model format
             provider = model_str.split("/")[0]

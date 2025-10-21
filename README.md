@@ -11,6 +11,8 @@
   </p>
 
 
+<a href="https://trendshift.io/repositories/14317" target="_blank"><img src="https://trendshift.io/api/badge/repositories/14317" alt="aliasrobotics%2Fcai | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
+
 [![version](https://badge.fury.io/py/cai-framework.svg)](https://badge.fury.io/py/cai-framework)
 [![downloads](https://static.pepy.tech/badge/cai-framework)](https://pepy.tech/projects/cai-framework)
 [![Linux](https://img.shields.io/badge/Linux-Supported-brightgreen?logo=linux&logoColor=white)](https://github.com/aliasrobotics/cai)
@@ -27,6 +29,73 @@
 
 
 </div>
+
+<!-- CAI PRO - Professional Edition Banner -->
+
+<div align="center">
+
+  <a href="https://aliasrobotics.com/cybersecurityai.php" target="_blank">
+    <img src="media/cai-banner.svg" alt="CAI - Community and Professional Editions" width="100%" style="max-width: 900px;">
+  </a>
+
+  <sub><i>Professional Edition with unlimited <code>alias1</code> tokens</i> | <a href="https://aliasrobotics.com/alias1.php#benchmarking">📊 View Benchmarks</a> | <a href="https://aliasrobotics.com/cybersecurityai.php">🚀 Learn More</a></sub>
+
+  <table style="border-collapse: collapse; width: 100%">
+    <tr>
+      <td width="50%" align="center" style="padding: 0; border: none;">
+        <img src="media/cai_poc.gif" alt="CAI Community Edition Demo" width="100%">
+      </td>
+      <td width="50%" align="center" style="padding: 0; border: none;">
+        <img src="media/caipro_poc.gif" alt="CAI PRO Professional Edition Demo" width="100%">
+      </td>
+    </tr>
+  </table>  
+</div>
+
+<!-- Alternative HTML version (kept as comment for reference) -->
+<!--
+<div align="center">
+  <table style="border-collapse: collapse; width: 100%; max-width: 900px; box-shadow: 0 4px 12px rgba(82, 157, 134, 0.15);">
+    <tr>
+      <td align="center" width="50%" style="padding: 20px; border: 3px solid #529d86; border-right: 1.5px solid #529d86; border-radius: 10px 0 0 10px; background: linear-gradient(135deg, #f0f8f6 0%, #ffffff 100%);">
+        <h3 style="color: #3d7b6b;">🔓 Community Edition</h3>
+        <sub style="color: #529d86;"><b>Research & Learning · Perfect for Researchers & Students</b></sub><br><br>
+        <code style="background: linear-gradient(135deg, #e8f5f1 0%, #d4ede5 100%); padding: 8px 16px; border-radius: 6px; font-size: 14px; border: 1px solid #529d86; color: #2d5a4d;">pip install cai-framework</code><br><br>
+        <div align="left" style="margin: 10px auto; max-width: 200px; color: #2d2d2d;">
+          ✅ <b style="color: #529d86;">Free</b> for research<br>
+          🤖 <b style="color: #529d86;">300+</b> AI models<br>
+          🌍 <b style="color: #529d86;">Community</b> driven<br>
+          📚 <b style="color: #529d86;">Open</b> source<br>
+          🔧 <b style="color: #529d86;">Extensible</b> framework<br>
+        </div>
+      </td>
+      <td align="center" width="50%" style="padding: 20px; border: 3px solid #529d86; border-left: 1.5px solid #529d86; border-radius: 0 10px 10px 0; background: linear-gradient(135deg, #529d86 0%, #6bb09a 100%); position: relative; box-shadow: inset 0 0 30px rgba(255, 255, 255, 0.1);">
+        <h3 style="color: #ffffff; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);">🚀 <a href="https://aliasrobotics.com/cybersecurityai.php" style="text-decoration: none; color: #ffffff;">Professional Edition</a></h3>
+        <sub style="color: #e8f5f1;"><b>Enterprise & Production · €350/month · Unlimited <code style="background: rgba(255, 255, 255, 0.2); padding: 2px 6px; border-radius: 3px; color: #ffffff;">alias1</code> Tokens</b></sub><br><br>
+        <a href="https://aliasrobotics.com/cybersecurityai.php">
+          <code style="background: linear-gradient(135deg, #ffffff 0%, #f0f8f6 100%); color: #529d86; padding: 10px 20px; border-radius: 6px; font-size: 14px; font-weight: bold; border: 2px solid #ffffff; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);">→ Upgrade to PRO</code>
+        </a><br><br>
+        <div align="left" style="margin: 10px auto; max-width: 280px; color: #ffffff;">
+          ⚡ <b><a href="https://aliasrobotics.com/alias1.php#benchmarking" style="color: #ffffff; text-decoration: underline;">alias1</a></b> model - ∞ unlimited tokens<br>
+          🚫 <b>Zero refusals</b> - Unrestricted AI<br>
+          🏆 <b>Beats GPT-5</b> in CTF benchmarks<br>
+          🛡️ <b>Professional</b> support included<br>
+          🇪🇺 <b>European</b> data sovereignty<br>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" align="center" style="padding: 10px; background: #f6f8fa;">
+        <sub>
+          <a href="https://aliasrobotics.com/cybersecurityai.php"></a><br>
+          <i>CAI PRO w/ <code>alias1</code> model outperforms GPT-5 in AI vs AI cybersecurity benchmarks</i> | <a href="https://aliasrobotics.com/alias1.php#benchmarking">View Full Benchmarks →</a>
+        </sub>
+      </td>
+    </tr>
+  </table>
+</div>
+-->
+
 
 Cybersecurity AI (CAI) is a lightweight, open-source framework that empowers security professionals to build and deploy AI-powered offensive and defensive automation. CAI is the *de facto* framework for AI Security, already used by thousands of individual users and hundreds of organizations. Whether you're a security researcher, ethical hacker, IT professional, or organization looking to enhance your security posture, CAI provides the building blocks to create specialized AI agents that can assist with mitigation, vulnerability discovery, exploitation, and security assessment.
 
@@ -98,6 +167,7 @@ Cybersecurity AI (CAI) is a lightweight, open-source framework that empowers sec
   - [:rocket: Quickstart](#rocket-quickstart)
     - [Environment Variables](#environment-variables)
     - [OpenRouter Integration](#openrouter-integration)
+    - [Azure OpenAI](#azure-openai)
     - [MCP](#mcp)
   - [Development](#development)
     - [Contributions](#contributions)
@@ -251,6 +321,9 @@ Cybersecurity AI is a critical field, yet many groups are misguidedly pursuing i
 | **Annex 1**: `CAI` 0.5.x release  | Introduce version 0.5 of `CAI` including new multi-agent functionality, new commands such as `/history`, `/compact`, `/graph` or `/memory` and a case study showing how `CAI` found a critical security flaw in OT heap pumps spread around the world. |  [![Watch the video](https://img.youtube.com/vi/OPFH0ANUMMw/0.jpg)](https://www.youtube.com/watch?v=OPFH0ANUMMw) | [![Watch the video](https://img.youtube.com/vi/Q8AI4E4gH8k/0.jpg)](https://www.youtube.com/watch?v=Q8AI4E4gH8k) |
 | **Annex 2**: `CAI` 0.4.x release and `alias0`  | Introducing version 0.4 of `CAI` with *streaming* and improved MCP support. We also introduce `alias0`, the Privacy-First Cybersecurity AI, a Model-of-Models Intelligence that implements a Privacy-by-Design architecture and obtains state-of-the-art results in cybersecurity benchmarks. |  [![Watch the video](https://img.youtube.com/vi/NZjzfnvAZcc/0.jpg)](https://www.youtube.com/watch?v=NZjzfnvAZcc) |  |
 | **Annex 3**: Cybersecurity AI Community Meeting #1  | First Cybersecurity AI (`CAI`) community meeting, over 40 participants from academia, industry, and defense gathered to discuss the open-source scaffolding behind CAI — a project designed to build agentic AI systems for cybersecurity that are open, modular, and Bug Bounty-ready. |  [![Watch the video](https://img.youtube.com/vi/4JqaTiVlgsw/0.jpg)](https://www.youtube.com/watch?v=4JqaTiVlgsw) |  |
+| **Annex 4**: `CAI PRO` PoC  | Short proof-of-concept demonstration of [CAI PRO](https://aliasrobotics.com/cybersecurityai.php) capabilities showcasing the Professional Edition with unlimited `alias1` tokens, unrestricted AI, and enterprise-grade security testing features. | ![CAI PRO Demo](media/caipro_poc.gif) |  |
+| **Annex 5**: `CAI` PoC  | Short proof-of-concept demonstration of CAI Community Edition showcasing the open-source framework's core capabilities for AI-powered security testing and vulnerability discovery. | ![CAI Demo](media/cai_poc.gif) |  |
+| **Annex 6**: CAI in `Jaula del N00B`  |  CAI (CIBERSEGURIDAD CON IA) LUIJAIT EN LA JAULA DEL N00B  - Demonstration and discussion of CAI framework capabilities in the popular Spanish cybersecurity podcast/show. |  | [![Watch the video](https://img.youtube.com/vi/KD2_xzIOkWg/0.jpg)](https://www.youtube.com/watch?v=KD2_xzIOkWg) |
 
 
 
@@ -405,13 +478,14 @@ The OPENAI_API_KEY must not be left blank. It should contain either "sk-123" (as
 
 :warning: Note:
 
-If you are using alias0 model, make sure that CAI is >0.4.0 version and here you have an .env example to be able to use it.
+If you are using alias1 model, make sure that CAI is >0.4.0 version and here you have an .env example to be able to use it.
 
 ```bash
 OPENAI_API_KEY="sk-1234"
 OLLAMA=""
 ALIAS_API_KEY="<sk-your-key>"  # note, add yours
 CAI_STEAM=False
+CAI_MODEL="alias1"
 ```
 
 ### 🔹 Custom OpenAI Base URL Support
@@ -1126,6 +1200,7 @@ If you want to cite our work, please use the following:
       url={https://arxiv.org/abs/2508.21669}, 
 }
 ```
+
 
 ## Acknowledgements
 

@@ -744,33 +744,21 @@ class FuzzyCommandCompleter(Completer):
                 # Add special handling for agent command
                 elif cmd in ["/agent", "/a"]:
                     yield from self.get_agent_suggestions(current_word)
-<<<<<<< HEAD
-=======
                 # Add special handling for MCP command
                 elif cmd in ["/mcp", "/m"]:
                     yield from self.get_mcp_suggestions(effective_words, current_word)
->>>>>>> 9a5a067712bec32f74344cef5083228029b57ac5
                 else:
                     # Get subcommand suggestions
                     yield from self.get_subcommand_suggestions(cmd, current_word)
 
-<<<<<<< HEAD
-            # Agent select completion
-            elif len(words) == 3:
-                cmd = words[0]
-                subcommand = words[1]
-=======
             # Third word completion
             elif len(effective_words) == 3:
                 cmd = words[0]
                 subcommand = words[1] if len(words) > 1 else ""
->>>>>>> 9a5a067712bec32f74344cef5083228029b57ac5
                 
                 # Agent select completion
                 if cmd in ["/agent", "/a"] and subcommand in ["select", "info"]:
                     yield from self.get_agent_suggestions(current_word)
-<<<<<<< HEAD
-=======
                 # MCP command completion for third word
                 elif cmd in ["/mcp", "/m"]:
                     yield from self.get_mcp_suggestions(effective_words, current_word)
@@ -782,4 +770,3 @@ class FuzzyCommandCompleter(Completer):
                 # MCP add command needs agent name as fourth word
                 if cmd in ["/mcp", "/m"]:
                     yield from self.get_mcp_suggestions(effective_words, current_word)
->>>>>>> 9a5a067712bec32f74344cef5083228029b57ac5
