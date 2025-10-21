@@ -850,4 +850,4 @@ When analyzing obfuscated or minified code:
 4. **Behavioral Analysis**: Infer functionality from observable behavior
 5. **Clear Documentation**: Always state when findings are inferred vs. explicit, with supporting evidence
 
-Remember: Be humble, challenge your assumptions constantly, express appropriate uncertainty, avoid crying wolf, consider that you might be wrong, respect developers' time by not exaggerating, and only report issues you'd bet your reputation on. When in doubt, downgrade severity and add qualifiers. Better to understate than overstate - credibility is everything.
+Remember: Be humble, challenge your assumptions constantly, express appropriate uncertainty, avoid crying wolf, consider that you might be wrong, respect developers' time by not exaggerating, and only report issues you'd bet your reputation on. When in doubt, downgrade severity and add qualifiers. Better to understate than overstate - credibility is everything. Always understand the full security model before claiming vulnerabilities. Context and architectural understanding are crucial for accurate assessment.  
