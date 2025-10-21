@@ -448,6 +448,135 @@ For EVERY finding, explicitly answer:
 - Missing security headers (unless specifically asked)
 - Verbose error messages (unless they leak sensitive data)
 
+## Comprehensive Security Vulnerability Patterns (Multi-Language)
+
+### SQL Injection (Critical)
+**Languages**: Python, JavaScript/Node.js, Java, PHP, C#, Go
+**Detection Patterns**:
+- String concatenation in SQL queries (Python: `execute()` with `+`, `%s`, f-strings, `.format()`)
+- JavaScript: `query()`, `db.query()`, `mysql.query()`, `pg.query()` with concatenation or template literals
+- Java: `Statement.executeQuery()`, `PreparedStatement` misuse with concatenation
+- PHP: `mysql_query()`, `mysqli_query()`, `PDO` with concatenation
+- C#: `SqlCommand`, `ExecuteReader()` with concatenation
+**Key Indicators**: Look for SQL keywords (SELECT, INSERT, UPDATE, DELETE) combined with user input concatenation
+**Reality Check**: Verify if ORM is used (Django ORM, Eloquent, Hibernate prevent this by default)
+
+### Command Injection (Critical)
+**Languages**: Python, JavaScript/Node.js, Java, PHP, C#, Go
+**Detection Patterns**:
+- Python: `os.system()`, `os.popen()`, `subprocess.call()`, `subprocess.run()`, `subprocess.Popen()` with `shell=True` and concatenation
+- JavaScript/Node.js: `child_process.exec()`, `child_process.spawn()`, `child_process.execFile()` with concatenation
+- Java: `Runtime.getRuntime().exec()`, `ProcessBuilder` with concatenation
+- PHP: `exec()`, `system()`, `shell_exec()`, `passthru()` with concatenation
+- C#: `Process.Start()`, `ProcessStartInfo` with concatenation
+- Go: `exec.Command()`, `os.Exec()` with concatenation
+**Key Indicators**: Shell command execution functions with user input
+**Reality Check**: Check if input is properly sanitized or if command parameters are properly escaped
+
+### Path Traversal (High)
+**Languages**: All languages with file operations
+**Detection Patterns**:
+- Directory traversal sequences: `../`, `..\`, `..%2f`, `..%5c`, `..%252f`, `..%255c`
+- Python: `open()`, `os.path.join()` with concatenation
+- JavaScript/Node.js: `fs.readFile()`, `fs.writeFile()`, `path.join()`, `require()` with user input
+- Java: `FileInputStream`, `FileOutputStream`, `new File()` with concatenation
+- PHP: `file_get_contents()`, `file_put_contents()`, `fopen()`, `include()`, `require()` with concatenation
+- C#: `File.ReadAllText()`, `File.WriteAllText()`, `FileStream` with concatenation
+**Key Indicators**: File operations with user-controlled paths
+**Reality Check**: Verify if path is validated, normalized, or restricted to safe directories
+
+### Cross-Site Scripting - XSS (High)
+**Languages**: JavaScript, PHP, Python frameworks, Java, C#
+**Detection Patterns**:
+- JavaScript: `innerHTML`, `document.write()`, `eval()`, `setTimeout()`, `setInterval()`, `Function()` constructor with user input
+- PHP: `echo`, `print`, `printf` with `$_GET`, `$_POST`, `$_REQUEST` without sanitization
+- Python: Flask `render_template_string()`, Django `mark_safe()`, `HttpResponse()` with concatenation
+- Java: `response.getWriter().print()`, `out.print()` with user input
+- C#: `Response.Write()`, `Page.Response.Write()` with user input
+**Key Indicators**: User input rendered to HTML without encoding/escaping
+**Reality Check**: Check if framework auto-escapes (React does by default unless `dangerouslySetInnerHTML` is used)
+
+### Insecure Deserialization (Critical)
+**Languages**: Python, Java, PHP, C#, JavaScript/Node.js
+**Detection Patterns**:
+- Python: `pickle.loads()`, `pickle.load()`, `marshal.loads()`, `yaml.load()`, `yaml.unsafe_load()`
+- Java: `ObjectInputStream.readObject()`, `XMLDecoder.readObject()`
+- PHP: `unserialize()`
+- C#: `BinaryFormatter.Deserialize()`, `XmlSerializer.Deserialize()`
+- JavaScript: `eval()` with `JSON.parse()`, `Function()` constructor with parsed data
+**Key Indicators**: Deserialization of untrusted data
+**Reality Check**: Verify if input source is truly untrusted or if integrity checks (signatures) are in place
+
+### Server-Side Request Forgery - SSRF (High)
+**Languages**: Python, JavaScript/Node.js, Java, PHP, C#
+**Detection Patterns**:
+- Python: `requests.get()`, `requests.post()`, `urllib.request.urlopen()`, `httplib.HTTPConnection()` with user input
+- JavaScript/Node.js: `fetch()`, `axios.get()`, `axios.post()`, `http.get()`, `http.request()` with user input
+- Java: `HttpURLConnection`, `RestTemplate`, `WebClient` with user input
+- PHP: `file_get_contents()`, `curl_exec()`, `fsockopen()` with user input
+- C#: `HttpClient`, `WebRequest` with user input
+**Key Indicators**: HTTP requests where URL or parts of URL come from user input
+**Reality Check**: Check if URL is validated against whitelist or if internal network access is properly restricted
+
+### Insecure Direct Object Reference - IDOR (High)
+**Languages**: All web frameworks
+**Detection Patterns**:
+- Direct use of user-supplied IDs without authorization checks
+- PHP: `user_id`, `id` from `$_GET`, `$_POST` used directly in queries
+- Python: Django `request.GET`, Flask `request.args` IDs used without permission checks
+- JavaScript: `req.query`, `req.params` IDs used without authorization
+**Key Indicators**: Object identifiers from user input without verifying ownership/permissions
+**Reality Check**: Check if authorization middleware exists or if framework enforces object-level permissions
+
+### Weak Cryptography (High)
+**Languages**: All languages
+**Detection Patterns**:
+- Python: `hashlib.md5()`, `hashlib.sha1()`, `DES()`, `RC4()`, `DES3()`, `Blowfish()`
+- JavaScript/Node.js: `crypto.createHash('md5')`, `crypto.createHash('sha1')`, `crypto.createCipher()`, `crypto.createDecipher()`
+- Java: `MessageDigest.getInstance("MD5")`, `MessageDigest.getInstance("SHA1")`, `DESKeySpec`, `SecretKeySpec` with DES
+- PHP: `md5()`, `sha1()`, `crypt()` for passwords
+- C#: `MD5CryptoServiceProvider`, `SHA1CryptoServiceProvider`, `DESCryptoServiceProvider`
+**Key Indicators**: Use of deprecated/weak hashing (MD5, SHA1) or encryption (DES, RC4) algorithms
+**Reality Check**: Consider context - MD5 for checksums may be acceptable, but not for passwords or signatures
+
+### Insecure Random Number Generation (Medium)
+**Languages**: All languages
+**Detection Patterns**:
+- Python: `random.random()`, `random.randint()`, `random.choice()` for security purposes (should use `secrets` module)
+- JavaScript: `Math.random()` for security tokens/session IDs
+- Java: `Math.random()`, `Random()` for security purposes (should use `SecureRandom`)
+- PHP: `rand()`, `mt_rand()` for security purposes (should use `random_bytes()`, `random_int()`)
+- C#: `Random()` for security purposes (should use `RNGCryptoServiceProvider`)
+**Key Indicators**: Non-cryptographic random functions used in security contexts (tokens, session IDs, crypto keys)
+**Reality Check**: Verify the context - non-crypto random is fine for non-security purposes
+
+### Authentication Bypass (High)
+**Languages**: All web frameworks
+**Detection Patterns**:
+- Simple comparisons: `if user == "admin"`, `if role == "admin"`, `if is_admin == True`
+- Session fixation: `session_id` from GET/POST parameters
+- Weak session management: Session data directly from user input
+**Key Indicators**: Authentication logic based on simple checks without proper validation
+**Reality Check**: Look for comprehensive authentication middleware or framework-provided auth mechanisms
+
+### Information Disclosure (Medium)
+**Languages**: All languages
+**Detection Patterns**:
+- Detailed error messages: `print Exception`, `console.log error`, stack traces exposed to users
+- Debug mode enabled: `DEBUG = True`, `development = True`
+- Verbose logging: `traceback.print_exc()`, `StackTrace` in production
+**Key Indicators**: Sensitive technical information exposed to end users
+**Reality Check**: Verify if this is in production code or only in development/test environments
+
+### Configuration Security Issues (Medium)
+**Languages**: All web frameworks
+**Detection Patterns**:
+- Django: `ALLOWED_HOSTS = ['*']`, `CORS_ALLOW_ALL_ORIGINS = True`, `DEBUG = True` in production
+- SSL/TLS: `SSL_VERIFY = False`, `VERIFY_SSL = False`
+- Security headers: `X_FRAME_OPTIONS = None`, `SECURE_SSL_REDIRECT = False`, `SECURE_HSTS_SECONDS = 0`
+**Key Indicators**: Insecure configuration settings that weaken security
+**Reality Check**: Confirm if this is production configuration vs local development settings
+
 ## Operational Constraints
 - **Never execute destructive payloads** without explicit permission
 - **Container isolation mandatory** for all tool execution
@@ -489,11 +618,213 @@ Continue analysis until:
 
 If blocked, pivot strategy:
 - Configure custom SonarQube rules for project-specific patterns
-- Create custom Semgrep rules for pattern detection
+- Create custom Semgrep rules for pattern detection (see Technical Pattern Reference below)
 - Write targeted analysis scripts
 - Perform manual code walkthrough with security lens
 - Cross-reference with framework-specific security guides
 - Use SonarQube's taint analysis for data flow tracking
+
+## Technical Pattern Reference for Custom Rule Creation
+
+When creating custom Semgrep, SonarQube, or grep-based rules in general, use these regex patterns as a starting point. Always adapt patterns to your specific codebase and validate for false positives.
+
+### SQL Injection Detection Patterns
+```regex
+# Python patterns
+execute\s*\(\s*['"].*%s.*['"]          # String formatting in SQL
+execute\s*\(\s*f['"].*\{.*\}.*['"]     # f-string in SQL
+execute\s*\(\s*['"].*\+.*['"]          # String concatenation in SQL
+cursor\.execute.*%                     # String formatting with %
+\.format\s*\(.*\)                      # .format() in SQL context
+query\s*=\s*['"].*\+.*['"]            # Query string concatenation
+
+# JavaScript/Node.js patterns
+query\s*\(\s*['"].*\+.*['"]           # JS query concatenation
+db\.query.*\+                          # Database query concatenation
+mysql\.query.*\+                       # MySQL query concatenation
+pg\.query.*\+                          # PostgreSQL query concatenation
+SELECT.*\$\{.*\}.*FROM                 # Template literal SQL
+
+# Java patterns
+Statement\.executeQuery.*\+            # Java SQL concatenation
+PreparedStatement.*\+                  # Java prepared statement misuse
+String\.format.*SELECT                 # Java string format SQL
+
+# PHP patterns
+mysql_query.*\+                        # PHP MySQL concatenation
+mysqli_query.*\+                       # PHP MySQLi concatenation
+PDO.*\+.*SELECT                        # PHP PDO concatenation
+
+# C# patterns
+SqlCommand.*\+                         # C# SQL concatenation
+ExecuteReader.*\+                      # C# SQL concatenation
+```
+
+### Command Injection Detection Patterns
+```regex
+# Python patterns
+os\.system\s*\(.*\+.*\)               # os.system with concatenation
+os\.popen\s*\(.*\+.*\)                # os.popen with concatenation
+subprocess\.call\s*\(.*\+.*\)         # subprocess with concatenation
+subprocess\.run\s*\(.*\+.*\)          # subprocess.run with concatenation
+subprocess\.Popen\s*\(.*\+.*\)        # subprocess.Popen with concatenation
+shell=True.*\+                         # shell=True with string concatenation
+
+# JavaScript/Node.js patterns
+child_process\.exec.*\+                # Node.js exec with concatenation
+child_process\.spawn.*\+               # Node.js spawn with concatenation
+child_process\.execFile.*\+            # Node.js execFile with concatenation
+
+# Java patterns
+Runtime\.getRuntime\(\)\.exec.*\+     # Java Runtime exec
+ProcessBuilder.*\+                     # Java ProcessBuilder
+
+# PHP patterns
+exec\s*\(.*\+.*\)                     # PHP exec
+system\s*\(.*\+.*\)                   # PHP system
+shell_exec\s*\(.*\+.*\)               # PHP shell_exec
+passthru\s*\(.*\+.*\)                 # PHP passthru
+
+# C# patterns
+Process\.Start.*\+                     # C# Process.Start
+ProcessStartInfo.*\+                   # C# ProcessStartInfo
+
+# Go patterns
+exec\.Command.*\+                      # Go exec.Command
+```
+
+### Path Traversal Detection Patterns
+```regex
+# Directory traversal sequences
+\.\./                                  # Unix directory traversal
+\.\.\\                                 # Windows directory traversal
+\.\.%2[fF]                            # URL encoded directory traversal
+\.\.%5[cC]                            # URL encoded Windows directory traversal
+\.\.%252[fF]                          # Double URL encoded directory traversal
+
+# Python patterns
+open\s*\(.*\+.*\)                     # File open with concatenation
+os\.path\.join.*\+                     # os.path.join with concatenation
+
+# JavaScript/Node.js patterns
+fs\.readFile.*\+                       # Node.js fs.readFile with concatenation
+fs\.writeFile.*\+                      # Node.js fs.writeFile with concatenation
+path\.join.*\+                         # Node.js path.join with concatenation
+
+# Java patterns
+FileInputStream.*\+                    # Java FileInputStream with concatenation
+FileOutputStream.*\+                   # Java FileOutputStream with concatenation
+new File.*\+                           # Java File constructor with concatenation
+
+# PHP patterns
+file_get_contents.*\+                  # PHP file_get_contents with concatenation
+file_put_contents.*\+                  # PHP file_put_contents with concatenation
+fopen.*\+                              # PHP fopen with concatenation
+include.*\+                            # PHP include with concatenation
+require.*\+                            # PHP require with concatenation
+```
+
+### Hardcoded Secrets Detection Patterns
+```regex
+# General credential patterns
+password\s*=\s*['"][^'"]{8,}['"]      # Hardcoded passwords
+api_key\s*=\s*['"][^'"]{20,}['"]      # Hardcoded API keys
+secret\s*=\s*['"][^'"]{10,}['"]       # Hardcoded secrets
+token\s*=\s*['"][^'"]{20,}['"]        # Hardcoded tokens
+private_key\s*=\s*['"][^'"]{20,}['"]  # Hardcoded private keys
+access_token\s*=\s*['"][^'"]{20,}['"] # Hardcoded access tokens
+
+# Database credentials
+db_password\s*=\s*['"][^'"]{8,}['"]   # Database passwords
+mysql_password\s*=\s*['"][^'"]{8,}['"] # MySQL passwords
+postgres_password\s*=\s*['"][^'"]{8,}['"] # PostgreSQL passwords
+
+# Cloud credentials
+aws_access_key\s*=\s*['"][^'"]{20,}['"] # AWS access keys
+aws_secret_key\s*=\s*['"][^'"]{40,}['"] # AWS secret keys
+
+# JWT and OAuth
+jwt_secret\s*=\s*['"][^'"]{20,}['"]   # JWT secrets
+client_secret\s*=\s*['"][^'"]{20,}['"] # OAuth client secrets
+```
+
+### XSS Detection Patterns
+```regex
+# JavaScript patterns
+innerHTML\s*=.*\+                      # innerHTML with concatenation
+document\.write.*\+                    # document.write with concatenation
+eval\s*\(.*\+                         # eval with concatenation
+setTimeout.*\+                         # setTimeout with concatenation
+setInterval.*\+                        # setInterval with concatenation
+
+# PHP patterns
+echo.*\$_[GET]                        # PHP echo with GET parameter
+print.*\$_[GET]                       # PHP print with GET parameter
+
+# Python patterns
+render_template_string.*\+             # Flask render_template_string
+mark_safe.*\+                         # Django mark_safe
+HttpResponse.*\+                       # Django HttpResponse
+
+# Java patterns
+response\.getWriter\(\)\.print.*\+    # Java response print
+
+# C# patterns
+Response\.Write.*\+                    # C# Response.Write
+```
+
+### Insecure Deserialization Patterns
+```regex
+# Python patterns
+pickle\.loads\s*\(                    # Python pickle.loads
+pickle\.load\s*\(                     # Python pickle.load
+yaml\.load\s*\(                       # Python yaml.load (unsafe)
+yaml\.unsafe_load\s*\(                # Python yaml.unsafe_load
+
+# Java patterns
+ObjectInputStream.*readObject          # Java ObjectInputStream.readObject
+XMLDecoder.*readObject                 # Java XMLDecoder.readObject
+
+# PHP patterns
+unserialize\s*\(                      # PHP unserialize
+
+# C# patterns
+BinaryFormatter.*Deserialize           # C# BinaryFormatter.Deserialize
+```
+
+### Weak Cryptography Patterns
+```regex
+# Python patterns
+hashlib\.md5\s*\(                     # MD5 hashing
+hashlib\.sha1\s*\(                    # SHA1 hashing
+
+# JavaScript patterns
+crypto\.createHash\s*\(\s*['"]md5['"] # Node.js MD5
+crypto\.createHash\s*\(\s*['"]sha1['"] # Node.js SHA1
+crypto\.createCipher\s*\(             # Deprecated createCipher
+
+# Java patterns
+MessageDigest\.getInstance\s*\(\s*['"]MD5['"] # Java MD5
+MessageDigest\.getInstance\s*\(\s*['"]SHA1['"] # Java SHA1
+
+# PHP patterns
+md5\s*\(                              # PHP md5
+sha1\s*\(                             # PHP sha1
+
+# C# patterns
+MD5CryptoServiceProvider              # C# MD5
+SHA1CryptoServiceProvider             # C# SHA1
+```
+
+### Usage Notes for Pattern Implementation:
+1. **Test patterns thoroughly** - These regex patterns may have false positives/negatives
+2. **Context matters** - Always validate findings manually before reporting
+3. **Adapt to your codebase** - Modify patterns based on your project's coding standards
+4. **Use with grep cautiously** - These patterns work better with semantic analysis tools
+5. **Combine with data flow analysis** - Static patterns alone don't show full context
+6. **Framework awareness** - Many frameworks have built-in protections that patterns won't detect
+
+Always challenge your findings if they are valid in the given context of the application.
 
 ## Key Guidelines for Modest, Accurate Analysis
 - **Default to lower severity** unless you have strong evidence otherwise
